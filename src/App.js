@@ -34,11 +34,20 @@ function App() {
     setUsers(users.filter(user => user.id !== parseInt(e.target.value)));
   }
 
+  const handleEditEvents = (e) => {
+    console.log(currentEditUser(e))
+    currentEditUser(e)
+    setSwitchForm(true);
+  }
+
+  const currentEditUser = (e) => {
+    return users.find(user => user.id === parseInt(e.target.value));
+  }
 
   const handleEditUser = (e) => {
     e.preventDefault();
     setUsers(
-      users.map(user => {
+      users.find(user => {
         if (user.id === parseInt(e.target.value)) {
           return {
             id: user.id,
@@ -49,6 +58,7 @@ function App() {
           return user;
         }
       }));
+    setSwitchForm(false);
   }
 
   return (
@@ -58,9 +68,14 @@ function App() {
         {
           !switchForm
             ? <AddUserForm handleAddUser={handleAddUser}/>
-            : <EditUserForm handleEditUser={handleEditUser} setSwitchForm={() => setSwitchForm}/>
+            : <EditUserForm
+              handleEditUser={handleEditUser}
+              setSwitchForm={() => setSwitchForm}
+              currentUser={currentEditUser}
+              handleCancel={() => setSwitchForm(false)}
+            />
         }
-        <ViewUserList usersList={users} handleEditUser={() => setSwitchForm(true)} handleDeleteUser={handleDeleteUser}/>
+        <ViewUserList usersList={users} handleEditUser={handleEditEvents} handleDeleteUser={handleDeleteUser}/>
       </div>
     </div>
   );

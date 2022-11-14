@@ -12,6 +12,7 @@ const AddUserForm = props => {
             className={"form-control"}
             id="first_name"
             name="first_name"
+            required={true}
           />
         </div>
         <div className={"form-group"}>
@@ -21,6 +22,7 @@ const AddUserForm = props => {
             className={"form-control"}
             id="last_name"
             name="last_name"
+            required={true}
           />
         </div>
         <button type="submit" className={"bg-green-400 text-white text-right px-4 py-2 rounded-md mt-4"}>
