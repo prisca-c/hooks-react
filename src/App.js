@@ -14,6 +14,12 @@ function App() {
       }
   ]);
 
+  const [editUser, setEditUser] = useState({
+    id: null,
+    first_name: "",
+    last_name: ""
+  })
+
   const [switchForm, setSwitchForm] = useState(false);
 
   const handleAddUser = (e) => {
@@ -35,29 +41,31 @@ function App() {
   }
 
   const handleEditEvents = (e) => {
-    console.log(currentEditUser(e))
+    setSwitchForm(true)
     currentEditUser(e)
-    setSwitchForm(true);
   }
 
   const currentEditUser = (e) => {
-    return users.find(user => user.id === parseInt(e.target.value));
+    setEditUser(
+      users.find(user => user.id === parseInt(e.target.value))
+    );
   }
+
+  useEffect(() => {}, [editUser.id, editUser.first_name, editUser.last_name]);
 
   const handleEditUser = (e) => {
     e.preventDefault();
     setUsers(
-      users.find(user => {
-        if (user.id === parseInt(e.target.value)) {
+      users.map(user => {
+        if (user.id === editUser.id) {
           return {
-            id: user.id,
+            ...user,
             first_name: e.target.first_name.value,
             last_name: e.target.last_name.value
           }
-        } else {
-          return user;
         }
-      }));
+        return user;
+      }))
     setSwitchForm(false);
   }
 
@@ -71,7 +79,8 @@ function App() {
             : <EditUserForm
               handleEditUser={handleEditUser}
               setSwitchForm={() => setSwitchForm}
-              currentUser={currentEditUser}
+              setEditUser={setEditUser}
+              currentUser={editUser}
               handleCancel={() => setSwitchForm(false)}
             />
         }
