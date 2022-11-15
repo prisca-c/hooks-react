@@ -1,16 +1,15 @@
 import React, {useState, useEffect} from "react";
 
 const EditUserForm = props => {
-  const [editedUser, setEditedUser] = useState(props.currentUser);
-  console.log(props.currentUser);
+  const [currentEditedUser, setCurrentEditedUser] = useState(props.currentUser);
 
   const handleOnChange = e => {
-    props.setEditUser({...editedUser, [e.target.name]: e.target.value});
+    props.setEditUser({...currentEditedUser, [e.target.name]: e.target.value});
   }
 
   useEffect(() => {
-    setEditedUser(props.currentUser);
-  }, [editedUser, props.currentUser]);
+    setCurrentEditedUser(props.currentUser);
+  }, [currentEditedUser, props.currentUser]);
 
   return (
     <div>
@@ -23,7 +22,7 @@ const EditUserForm = props => {
             className={"form-control"}
             id="first_name"
             name="first_name"
-            value={editedUser.first_name}
+            value={currentEditedUser.first_name}
             required={true}
             onChange={handleOnChange}
           />
@@ -35,7 +34,7 @@ const EditUserForm = props => {
             className={"form-control"}
             id="last_name"
             name="last_name"
-            value={editedUser.last_name}
+            value={currentEditedUser.last_name}
             required={true}
             onChange={handleOnChange}
           />

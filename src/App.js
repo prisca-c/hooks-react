@@ -33,6 +33,7 @@ function App() {
           first_name: e.target.first_name.value,
           last_name: e.target.last_name.value
         }]);
+    e.target.reset();
   }
 
   const handleDeleteUser = (e) => {
@@ -42,10 +43,10 @@ function App() {
 
   const handleEditEvents = (e) => {
     setSwitchForm(true)
-    currentEditUser(e)
+    currentEditedUser(e)
   }
 
-  const currentEditUser = (e) => {
+  const currentEditedUser = (e) => {
     setEditUser(
       users.find(user => user.id === parseInt(e.target.value))
     );
